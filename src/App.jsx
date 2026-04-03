@@ -4,15 +4,39 @@ import GroupCard from './groups/group-card'
 import { Link } from 'react-router';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const initialState = {
+    searchText: '',
+    selectedGroupId: undefined
+  }
 
-  const groupList = ["Best Group", "Stupid Group", "Normal Group", "Psycho Group", "Delulu Group"]
+  const [state, setState] = useState(initialState);
+
+  const groupList = [
+    { id: 1, name: "Best Group" },
+    { id: 2, name: "Stupid Group" },
+    { id: 3, name: "Normal Group" },
+    { id: 4, name: "Psycho Group" },
+    { id: 5, name: "Delulu Group" }]
 
   return (
     <>
       <Link to='/counter'>Go to counter</Link>
+      <input type='text'
+        onChange={({ target: { value } }) => setState({ ...state, searchText: value })} />
       {
-        groupList.map((group) => <GroupCard grpName={group} />)
+        groupList.map(({name, id}) => {
+          // return group.includes(state.searchText) ?
+          //   <GroupCard grpName={group} /> :
+          //   undefined;
+          return name.includes(state.searchText) &&
+            <GroupCard
+              key={id}
+              grpName={name}
+              isSelected={state.selectedGroupId === id}
+              id={id}
+              onCardClick={(id) => setState({ ...state, selectedGroupId: id })}
+            />;
+        })
       }
     </>
   )
