@@ -21,6 +21,9 @@ function App() {
   return (
     <>
       <Link to='/counter'>Go to counter</Link>
+      <br/>
+      <Link to='/use-effect-demo'>Go to useEffect Demo</Link>
+      <br/>
       <input type='text'
         onChange={({ target: { value } }) => setState({ ...state, searchText: value })} />
       {
